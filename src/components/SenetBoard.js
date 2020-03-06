@@ -17,14 +17,13 @@ const SenetBoard = () => {
       }
     }
     // TAKES OFF THE LAST 10 CELLS AND SAVES TO ANOTHER ARRAY
-    const gameBoardEnd = gameBoard.slice(20);
-    gameBoard.splice(20, 10);
+    const gameBoardEnd = gameBoard.splice(20, 10);
 
     // RETURNS AN ARRAY WITH THE MIDDLE ROW (11-20) REVERSED
     const newGameBoard = gameBoard.splice(0, 10)
     .concat(gameBoard.reverse())
     .concat(gameBoardEnd);
-    
+
     return newGameBoard;
   }
 
