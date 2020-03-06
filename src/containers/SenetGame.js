@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SenetBoard from '../components/SenetBoard';
 
-class SenetGame extends Componenet {
+class SenetGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +22,15 @@ class SenetGame extends Componenet {
       ],
       winner: null
     }
+  }
+
+  render() {
+    return (
+      <>
+      <h3>SenetGame</h3>
+      <SenetBoard />
+      </>
+    )
   }
 }
 

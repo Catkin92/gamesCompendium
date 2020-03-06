@@ -1,15 +1,11 @@
 import React from 'react';
 
-const SenetCell = props => {
-
-  function findClass() {
-    colour === "white" ? whiteCell : blackCell;
-  }
+const SenetCell = ({ colour, id }) => {
 
   return (
-    <>
-      <li className={findClass}></li>
-    </>
+      <li className={colour}>
+        {id}
+      </li>
   )
 }
 
