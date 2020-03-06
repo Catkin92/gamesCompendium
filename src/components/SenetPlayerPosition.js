@@ -1,17 +1,27 @@
 import React from 'react';
-import SenetPiece from './SenetPiece';
 
 const SenetPlayerPosition = ({ whitePieces, blackPieces, diceRoll }) => {
 
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   
-  const moveDistance = diceRoll.length !== 0 ? diceRoll.reduce(reducer) : null;
-  
+  function calculateMove() {
+    let moveDistance = 0;
+    if (diceRoll.length !== 0) {
+      moveDistance = diceRoll.reduce(reducer);
+        if (moveDistance === 0) {
+          moveDistance = 6;
+        }
+    }
+    else {
+      return null;
+    }
+    return moveDistance;
+  }
 
   return (
     <>
-    <p>SenetPlayerPosition</p>
+    <p>Move Distance: {calculateMove()}</p>
     </>
   )
 

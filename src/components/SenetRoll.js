@@ -20,7 +20,6 @@ const SenetRoll = ({ changeDiceRoll, diceRoll }) => {
 
   return (
     <>
-      <p>SenetRoll</p>
       <button onClick={handleRollDice}>Roll Dice</button>
       <SenetDie diceRoll={diceRoll}/>
     </>
