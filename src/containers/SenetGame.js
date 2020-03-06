@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SenetBoard from '../components/SenetBoard';
+import SenetRoll from '../components/SenetRoll';
 
 class SenetGame extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class SenetGame extends Component {
       <>
       <h3>SenetGame</h3>
       <SenetBoard />
+      <SenetRoll />
       </>
     )
   }

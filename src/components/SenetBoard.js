@@ -7,6 +7,7 @@ const SenetBoard = () => {
   function createBoard() {
     const gameBoard = [];
     let i;
+
     // ALTERNATES BLACK AND WHITE COLOURS
     for (i = 0; i < 30; i++) {
       if (i % 2 === 0) {
@@ -16,6 +17,7 @@ const SenetBoard = () => {
         gameBoard.splice(i, 0, <SenetCell key={i} colour="blackCell" id={i + 1}/>)
       }
     }
+    
     // TAKES OFF THE LAST 10 CELLS AND SAVES TO ANOTHER ARRAY
     const gameBoardEnd = gameBoard.splice(20, 10);
 
