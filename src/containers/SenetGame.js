@@ -23,17 +23,26 @@ class SenetGame extends Component {
       ],
       winner: null
     }
+    this.changeDiceRoll = this.changeDiceRoll.bind(this);
+  }
+
+  changeDiceRoll(roll) {
+    console.log(roll);
+    this.setState({ diceRoll: roll });
   }
 
   render() {
     return (
       <>
-      <h3>SenetGame</h3>
-      <SenetBoard 
-        whitePieces={this.state.whitePieces}
-        blackPieces={this.state.blackPieces}
-      />
-      <SenetRoll />
+        <h3>SenetGame</h3>
+        <SenetBoard 
+          whitePieces={this.state.whitePieces}
+          blackPieces={this.state.blackPieces}
+        />
+        <SenetRoll 
+          changeDiceRoll={this.changeDiceRoll}
+          diceRoll={this.state.diceRoll}
+        />
       </>
     )
   }
