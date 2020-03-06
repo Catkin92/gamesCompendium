@@ -5,3 +5,13 @@
 .blackCell {
   background-color: rgba(0, 0, 0, 0.664);
 }
+
+.whiteCell, .blackCell {
+  list-style: none;
+}
+
+.senetBoard {
+  display: grid;
+  grid-template-columns: repeat(10, 4em);
+  grid-template-rows: repeat(3, 4em);
+}
