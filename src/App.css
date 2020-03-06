@@ -16,8 +16,6 @@
   padding: 0.2em;
 }
 
-
-
 .senetBoard {
   display: grid;
   grid-template-columns: repeat(10, 4em);
@@ -27,14 +25,18 @@
 .whiteDie, .blackDie {
   list-style: none;
   margin: 0.1em;
+  height: 5em;
+  width: 0.8em;
 }
 
 .whiteDie {
   background-color: bisque;
+  color: bisque;
 }
 
 .blackDie {
   background-color:  rgba(0, 0, 0, 0.664);
+  color: rgba(90, 89, 89, 0.664);
 }
 
 .diceRoll {
