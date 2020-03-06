@@ -8,7 +8,7 @@ const SenetCell = props => {
 
   return (
     <>
-      <img className={findClass}></img>
+      <li className={findClass}></li>
     </>
   )
 }
