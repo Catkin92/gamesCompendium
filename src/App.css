@@ -1,12 +1,12 @@
-.whiteCell, .whitePiece {
+.whiteCell, .whitePieces {
   background-color: bisque;
 }
 
-.blackCell, .blackPiece {
+.blackCell, .blackPieces {
   background-color: rgba(0, 0, 0, 0.664);
 }
 
-.whiteCell, .blackCell, .whitePiece, .blackPiece {
+.whiteCell, .blackCell, .whitePieces, .blackPieces {
   list-style: none;
 }
 
@@ -34,9 +34,10 @@
   grid-template-columns: repeat(4, 2em);
 }
 
-.whitePiece, .blackPiece {
+.whitePieces, .blackPieces {
   height: 1em;
   width: 1em;
   margin: 0.5em;
   padding: 0.25em;
+  border: solid black 0.05em;
 }

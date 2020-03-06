@@ -8,18 +8,18 @@ class SenetGame extends Component {
     this.state = {
       diceRoll: [],
       whitePieces: [
-        { id: 1, position: null },
-        { id: 2, position: null },
-        { id: 3, position: null },
-        { id: 4, position: null },
-        { id: 5, position: null }
+        { id: 1, position: 2 },
+        { id: 2, position: 4 },
+        { id: 3, position: 6 },
+        { id: 4, position: 8 },
+        { id: 5, position: 10 }
       ],
       blackPieces: [
-        { id: 1, position: null },
-        { id: 2, position: null },
-        { id: 3, position: null },
-        { id: 4, position: null },
-        { id: 5, position: null }
+        { id: 6, position: 1 },
+        { id: 7, position: 3 },
+        { id: 8, position: 5 },
+        { id: 9, position: 7 },
+        { id: 10, position: 9 }
       ],
       winner: null
     }

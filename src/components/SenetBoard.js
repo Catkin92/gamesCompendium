@@ -4,40 +4,45 @@ import SenetPlayerPosition from './SenetPlayerPosition';
 
 const SenetBoard = ({ whitePieces, blackPieces }) => {
 
-  //  CREATES AN ARRAY OF 30 SENET CELLS
+
   function createBoard() {
     const gameBoard = [];
     let i;
-
-    // ALTERNATES BLACK AND WHITE COLOURS
-    for (i = 0; i < 30; i++) {
+    for (i = 1; i < 31; i++) {
+      let index = Math.floor(i / 2);
       if (i % 2 === 0) {
-        gameBoard.splice(i, 0, <SenetCell key={i} colour="whiteCell" id={i + 1}/>)
+        gameBoard.splice(i, 0, <SenetCell key={i}
+          colour="blackCell" id={i}
+          piece={(whitePieces[index - 1] && whitePieces[index - 1].position === i) ? whitePieces[index - 1].id : null}
+          />
+        )
       }
       else {
-        gameBoard.splice(i, 0, <SenetCell key={i} colour="blackCell" id={i + 1}/>)
+        gameBoard.splice(i, 0, <SenetCell key={i}
+          colour="whiteCell" id={i} 
+          piece={(blackPieces[index] && blackPieces[index].position === i) ? blackPieces[index].id : null}
+           />
+        )
       }
     }
-    
-    // TAKES OFF THE LAST 10 CELLS AND SAVES TO ANOTHER ARRAY
+
     const gameBoardEnd = gameBoard.splice(20, 10);
 
-    // RETURNS AN ARRAY WITH THE MIDDLE ROW (11-20) REVERSED
     const newGameBoard = gameBoard.splice(0, 10)
-    .concat(gameBoard.reverse())
-    .concat(gameBoardEnd);
+      .concat(gameBoard.reverse())
+      .concat(gameBoardEnd);
 
     return newGameBoard;
   }
 
   return (
     <>
-    <h4>SenetBoard</h4>
-    <ul className="senetBoard">{createBoard()}</ul>
-    <SenetPlayerPosition 
-      whitePieces={whitePieces}
-      blackPieces={blackPieces}
-    />
+      <h4>SenetBoard</h4>
+      <ul className="senetBoard">{whitePieces ? createBoard() : null}</ul>
+      <SenetPlayerPosition
+        whitePieces={whitePieces}
+        blackPieces={blackPieces}
+      />
     </>
   )
 }
