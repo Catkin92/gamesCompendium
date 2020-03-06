@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SenetBoard from '../components/SenetBoard';
 
 class SenetGame extends Componenet {
   constructor(props) {
