@@ -1,4 +1,5 @@
 import React from 'react';
+import SenetDie from './SenetDie';
 
 const SenetRoll = () => {
 
@@ -7,16 +8,21 @@ const SenetRoll = () => {
     for (let i = 0; i < 4; i++) {
       const colourNumber = Math.round(Math.random());
       if (colourNumber === 0) {
-        <SenetDie key={i} colour="whiteDie"/>
+        diceRoll.splice(i, 0, <SenetDie key={i} colour="whiteDie"/>)
       }
       else {
-        <SenetDie key={i} colour="blackDie"/>
+        diceRoll.splice(i, 0, <SenetDie key={i} colour="blackDie"/>)
       }
     }
+
+    return diceRoll;
   }
 
   return (
+    <>
+    <p>SenetRoll</p>
     <p>{rollDice()}</p>
+    </>
   )
 }
 
