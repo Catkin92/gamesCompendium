@@ -4,7 +4,6 @@ import SenetPlayerPosition from './SenetPlayerPosition';
 
 const SenetBoard = ({ whitePieces, blackPieces }) => {
 
-
   function createBoard() {
     const gameBoard = [];
     let i;

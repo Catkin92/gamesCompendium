@@ -21,13 +21,13 @@ class SenetGame extends Component {
         { id: 9, position: 7 },
         { id: 10, position: 9 }
       ],
-      winner: null
+      winner: null,
+      turnCounter: "white"
     }
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
   }
 
   changeDiceRoll(roll) {
-    console.log(roll);
     this.setState({ diceRoll: roll });
   }
 

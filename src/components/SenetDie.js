@@ -2,11 +2,12 @@ import React from 'react';
 
 const SenetDie = ({ diceRoll }) => {
 
-  const diceMap = diceRoll.map((colour, index) => {
-   return  <li key={index} className={colour}>x</li>
+  const diceMap = diceRoll.map((roll, index) => {
+    return <li key={index} className={roll ? "whiteDie" : "blackDie"}>x</li>
   })
+
   return (
-    <ul class="diceRoll">{diceMap}</ul>
+    <ul className="diceRoll">{diceMap}</ul>
   )
 
 }
