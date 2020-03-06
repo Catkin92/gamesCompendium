@@ -1,12 +1,12 @@
-.whiteCell {
+.whiteCell, .whitePiece {
   background-color: bisque;
 }
 
-.blackCell {
+.blackCell, .blackPiece {
   background-color: rgba(0, 0, 0, 0.664);
 }
 
-.whiteCell, .blackCell {
+.whiteCell, .blackCell, .whitePiece, .blackPiece {
   list-style: none;
 }
 
@@ -32,4 +32,11 @@
 .diceRoll {
   display: grid;
   grid-template-columns: repeat(4, 2em);
+}
+
+.whitePiece, .blackPiece {
+  height: 1em;
+  width: 1em;
+  margin: 0.5em;
+  padding: 0.25em;
 }

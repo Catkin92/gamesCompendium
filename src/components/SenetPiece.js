@@ -1,8 +1,10 @@
 import React from 'react';
 
-const SenetPiece = () => {
+const SenetPiece = ({ colour }) => {
 
-  
+  return (
+    <li className={colour}>{ colour === "whitePiece" ? "W" : "B"}</li>
+  )
 }
 
 export default SenetPiece;

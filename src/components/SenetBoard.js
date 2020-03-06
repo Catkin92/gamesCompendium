@@ -1,7 +1,8 @@
 import React from 'react';
 import SenetCell from './SenetCell';
+import SenetPlayerPosition from './SenetPlayerPosition';
 
-const SenetBoard = () => {
+const SenetBoard = ({ whitePieces, blackPieces }) => {
 
   //  CREATES AN ARRAY OF 30 SENET CELLS
   function createBoard() {
@@ -33,6 +34,10 @@ const SenetBoard = () => {
     <>
     <h4>SenetBoard</h4>
     <ul className="senetBoard">{createBoard()}</ul>
+    <SenetPlayerPosition 
+      whitePieces={whitePieces}
+      blackPieces={blackPieces}
+    />
     </>
   )
 }

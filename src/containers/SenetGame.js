@@ -29,7 +29,10 @@ class SenetGame extends Component {
     return (
       <>
       <h3>SenetGame</h3>
-      <SenetBoard />
+      <SenetBoard 
+        whitePieces={this.state.whitePieces}
+        blackPieces={this.state.blackPieces}
+      />
       <SenetRoll />
       </>
     )
