@@ -3,7 +3,7 @@ import React from 'react';
 const SenetDie = ({ colour }) => {
 
   return (
-    <li className={colour}>{colour}</li>
+    <li className={colour}>x</li>
   )
 
 }

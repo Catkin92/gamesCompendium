@@ -21,7 +21,7 @@ const SenetRoll = () => {
   return (
     <>
     <p>SenetRoll</p>
-    <p>{rollDice()}</p>
+    <p className="diceRoll">{rollDice()}</p>
     </>
   )
 }
