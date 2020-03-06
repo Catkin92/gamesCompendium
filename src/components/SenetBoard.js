@@ -2,7 +2,7 @@ import React from 'react';
 import SenetCell from './SenetCell';
 import SenetPlayerPosition from './SenetPlayerPosition';
 
-const SenetBoard = ({ whitePieces, blackPieces }) => {
+const SenetBoard = ({ whitePieces, blackPieces, diceRoll }) => {
 
   function createBoard() {
     const gameBoard = [];
@@ -41,6 +41,7 @@ const SenetBoard = ({ whitePieces, blackPieces }) => {
       <SenetPlayerPosition
         whitePieces={whitePieces}
         blackPieces={blackPieces}
+        diceRoll={diceRoll}
       />
     </>
   )

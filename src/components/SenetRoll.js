@@ -3,23 +3,6 @@ import SenetDie from './SenetDie';
 
 const SenetRoll = ({ changeDiceRoll, diceRoll }) => {
 
-  // function rollDice() {
-  //   const diceRoll = [];
-
-  //   for (let i = 0; i < 4; i++) {
-  //     const colourNumber = Math.round(Math.random());
-
-  //     if (colourNumber === 0) {
-  //       diceRoll.splice(i, 0, "whiteDie")
-  //     }
-  //     else {
-  //       diceRoll.splice(i, 0, "blackDie")
-  //     }
-  //   }
-
-  //   return diceRoll;
-  // }
-
   function rollDice() {
     const diceRoll = [];
 

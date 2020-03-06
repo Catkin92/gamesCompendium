@@ -1,15 +1,13 @@
 import React from 'react';
 import SenetPiece from './SenetPiece';
 
-const SenetPlayerPosition = ({ whitePieces, blackPieces }) => {
+const SenetPlayerPosition = ({ whitePieces, blackPieces, diceRoll }) => {
 
-  const whitePlayer = whitePieces.map( ({ id }) => {
-   return <SenetPiece key={id} colour="whitePieces"/>
-  })
 
-  const blackPlayer = blackPieces.map( ({ id }) => {
-   return <SenetPiece key={id} colour="blackPieces"/>
-  })
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  
+  const moveDistance = diceRoll.length !== 0 ? diceRoll.reduce(reducer) : null;
+  
 
   return (
     <>

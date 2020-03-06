@@ -38,6 +38,7 @@ class SenetGame extends Component {
         <SenetBoard 
           whitePieces={this.state.whitePieces}
           blackPieces={this.state.blackPieces}
+          diceRoll={this.state.diceRoll}
         />
         <SenetRoll 
           changeDiceRoll={this.changeDiceRoll}
