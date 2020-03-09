@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import SenetBoard from '../components/SenetBoard';
 import SenetRoll from '../components/SenetRoll';
-import SenetPiece from '../components/SenetPiece';
 
 class SenetGame extends Component {
   constructor(props) {
@@ -58,7 +57,7 @@ class SenetGame extends Component {
 
     this.setState(previousState => {
       const cells = [...previousState.cells];
-      cells[currentPosition - 1].piece = null;
+      cells[currentPosition - 1].piece = cells[newPosition - 1].piece;
       cells[newPosition - 1].piece = pieceId;
       return { cells };
     })
