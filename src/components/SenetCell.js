@@ -9,7 +9,7 @@ const SenetCell = ({ colour, id, piece, changePiecePosition }) => {
   return (
       <li className={colour}>
         {id}
-       { piece ? <SenetPiece changePiecePosition={changePiecePosition} id={piece} colour={piece < 6 ? "whitePieces" : "blackPieces"}/> : null }
+       { piece ? <SenetPiece changePiecePosition={changePiecePosition} currentPosition={id} id={piece} colour={piece < 6 ? "whitePieces" : "blackPieces"}/> : null }
       </li>
   )
 }

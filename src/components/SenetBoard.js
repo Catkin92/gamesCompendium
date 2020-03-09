@@ -2,44 +2,26 @@ import React from 'react';
 import SenetCell from './SenetCell';
 import SenetPlayerPosition from './SenetPlayerPosition';
 
-const SenetBoard = ({ whitePieces, blackPieces, diceRoll, changePiecePosition }) => {
+const SenetBoard = ({ whitePieces, blackPieces, diceRoll, cells, changePiecePosition }) => {
 
   // creates checkered board and initial position of playing pieces
   function createBoard() {
-    const gameBoard = [];
-    let i;
-    for (i = 1; i < 31; i++) {
-      let index = Math.floor(i / 2);
-      if (i % 2 === 0) {
-        gameBoard.splice(i, 0, <SenetCell 
-          changePiecePosition={changePiecePosition}
-          key={i}
-          colour="blackCell" id={i}
-          piece={(whitePieces[index - 1] && whitePieces[index - 1].position === i) ? whitePieces[index - 1].id : null}
-          />
-        )
-      } else {
-        gameBoard.splice(i, 0, <SenetCell 
-          changePiecePosition={changePiecePosition}
-          key={i}
-          colour="whiteCell" id={i} 
-          piece={(blackPieces[index] && blackPieces[index].position === i) ? blackPieces[index].id : null}
-           />
-        )
-      }
-    }
-    const gameBoardEnd = gameBoard.splice(20, 10);
-    const newGameBoard = gameBoard.splice(0, 10)
-      .concat(gameBoard.reverse())
-      .concat(gameBoardEnd);
-
-    return newGameBoard;
+    const gameBoard = cells.map(cell => {
+      return <SenetCell 
+        changePiecePosition={changePiecePosition}
+        key={cell.id}
+        id={cell.id}
+        colour={cell.id % 2 ? "blackCell" : "whiteCell"}
+        piece={cell.piece}
+      />
+    })
+    return gameBoard;
   }
 
   return (
     <>
       <h4>SenetBoard</h4>
-      <ul className="senetBoard">{ whitePieces ? createBoard() : null }</ul>
+      <ul className="senetBoard">{createBoard()}</ul>
       <SenetPlayerPosition
         whitePieces={whitePieces}
         blackPieces={blackPieces}
