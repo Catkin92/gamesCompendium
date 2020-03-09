@@ -38,19 +38,21 @@ class SenetGame extends Component {
       winner: null,
       turnCounter: "white"
     }
-    this.findPieceIndex = this.findPieceIndex.bind(this);
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
+    // this.isMoveLegal = this.isMoveLegal.bind(this);
     this.changePiecePosition = this.changePiecePosition.bind(this);
-  }
-
-  findPieceIndex(id, array) {
-    const findById = piece => piece.id === id;
-    return array.findIndex(findById);
   }
 
   changeDiceRoll(roll) {
     this.setState({ diceRoll: roll });
   }
+
+  // isMoveLegal(newPosition) {
+  //   if (!this.state.cells[newPosition - 1].piece) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   changePiecePosition(pieceId, currentPosition, newPosition) {
 
@@ -58,8 +60,6 @@ class SenetGame extends Component {
       const cells = [...previousState.cells];
       cells[currentPosition - 1].piece = null;
       cells[newPosition - 1].piece = pieceId;
-      console.log(cells[currentPosition - 1]);
-      console.log(cells[newPosition - 1]);
       return { cells };
     })
   }
