@@ -15,7 +15,14 @@ const SenetBoard = ({ whitePieces, blackPieces, diceRoll, cells, changePiecePosi
         piece={cell.piece}
       />
     })
-    return gameBoard;
+
+    const gameBoardEnd = gameBoard.splice(20, 10);
+    const newGameBoard = gameBoard.splice(0, 10)
+      .concat(gameBoard.reverse())
+      .concat(gameBoardEnd);
+
+    return newGameBoard;
+    
   }
 
   return (
