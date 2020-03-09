@@ -3,6 +3,7 @@ import SenetDie from './SenetDie';
 
 const SenetRoll = ({ changeDiceRoll, diceRoll }) => {
 
+  // rolls 4 dice and returns 1 for a white roll and 0 for a black roll
   function rollDice() {
     const diceRoll = [];
 

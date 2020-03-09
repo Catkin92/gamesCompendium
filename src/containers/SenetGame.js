@@ -24,11 +24,29 @@ class SenetGame extends Component {
       winner: null,
       turnCounter: "white"
     }
+    this.findPieceIndex = this.findPieceIndex.bind(this);
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
+    this.changePiecePosition = this.changePiecePosition.bind(this);
+  }
+
+  findPieceIndex(id, array) {
+    const findById = piece => piece.id === id;
+    return array.findIndex(findById);
   }
 
   changeDiceRoll(roll) {
     this.setState({ diceRoll: roll });
+  }
+
+  changePiecePosition(id, newPosition) {
+    const array = id < 6 ? "whitePieces" : "blackPieces";
+
+    const index = this.findPieceIndex(id, this.state[array]);
+    this.setState(previousState => {
+      const pieces = [...previousState[array]];
+      pieces[index].position = newPosition;
+      return { pieces };
+    })
   }
 
   render() {
@@ -39,6 +57,7 @@ class SenetGame extends Component {
           whitePieces={this.state.whitePieces}
           blackPieces={this.state.blackPieces}
           diceRoll={this.state.diceRoll}
+          changePiecePosition={this.changePiecePosition}
         />
         <SenetRoll 
           changeDiceRoll={this.changeDiceRoll}

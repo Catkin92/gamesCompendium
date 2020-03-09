@@ -5,6 +5,7 @@ const SenetPlayerPosition = ({ whitePieces, blackPieces, diceRoll }) => {
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   
+  // calculates result of a dice roll
   function calculateMove() {
     let moveDistance = 0;
     if (diceRoll.length !== 0) {
