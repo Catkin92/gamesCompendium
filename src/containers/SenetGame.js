@@ -7,25 +7,23 @@ class SenetGame extends Component {
     super(props);
     this.state = {
       diceRoll: [],
-      whitePieces: [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
-        { id: 4 },
-        { id: 5 }
-      ],
-      blackPieces: [
-        { id: 6 },
-        { id: 7 },
-        { id: 8 },
-        { id: 9 },
-        { id: 10 }
+      pieces: [
+        { id: 1, colour: "white" },
+        { id: 2, colour: "white" },
+        { id: 3, colour: "white" },
+        { id: 4, colour: "white" },
+        { id: 5, colour: "white" },
+        { id: 6, colour: "black" },
+        { id: 7, colour: "black" },
+        { id: 8, colour: "black" },
+        { id: 9, colour: "black" },
+        { id: 10, colour: "black" }
       ],
       cells: [
-        { id: 1, piece: 6 }, { id: 2, piece: 1 }, { id: 3, piece: 7 },
-        { id: 4, piece: 2 }, { id: 5, piece: 8 }, { id: 6, piece: 3 },
-        { id: 7, piece: 9 }, { id: 8, piece: 4 }, { id: 9, piece: 10 },
-        { id: 10, piece: 5 }, { id: 11, piece: null }, { id: 12, piece: null },
+        { id: 1, piece: 1 }, { id: 2, piece: 6 }, { id: 3, piece: 2 },
+        { id: 4, piece: 7 }, { id: 5, piece: 3 }, { id: 6, piece: 8 },
+        { id: 7, piece: 4 }, { id: 8, piece: 9 }, { id: 9, piece: 5 },
+        { id: 10, piece: 10 }, { id: 11, piece: null }, { id: 12, piece: null },
         { id: 13, piece: null }, { id: 14, piece: null }, { id: 15, piece: null },
         { id: 16, piece: null }, { id: 17, piece: null }, { id: 18, piece: null },
         { id: 19, piece: null }, { id: 20, piece: null }, { id: 21, piece: null },
@@ -38,7 +36,6 @@ class SenetGame extends Component {
       turnCounter: "white"
     }
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
-    // this.isMoveLegal = this.isMoveLegal.bind(this);
     this.changePiecePosition = this.changePiecePosition.bind(this);
   }
 
@@ -46,15 +43,18 @@ class SenetGame extends Component {
     this.setState({ diceRoll: roll });
   }
 
-  // isMoveLegal(newPosition) {
-  //   if (!this.state.cells[newPosition - 1].piece) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  isMoveLegal(currentPosition, newPosition) {
+    const newId = this.state.cells[newPosition - 1].piece;
+    const currentId = this.state.cells[currentPosition - 1].piece;
+    if ((!newId || !currentId) || this.state.pieces[newId - 1].colour !== this.state.pieces[currentId - 1].colour) {
+      return true;
+    }
+    return false;
+  }
 
   changePiecePosition(pieceId, currentPosition, newPosition) {
 
+    if (this.isMoveLegal(currentPosition, newPosition)) {
     this.setState(previousState => {
       const cells = [...previousState.cells];
       cells[currentPosition - 1].piece = cells[newPosition - 1].piece;
@@ -62,14 +62,14 @@ class SenetGame extends Component {
       return { cells };
     })
   }
+  }
 
   render() {
     return (
       <>
         <h3>SenetGame</h3>
         <SenetBoard 
-          whitePieces={this.state.whitePieces}
-          blackPieces={this.state.blackPieces}
+          pieces={this.state.pieces}
           cells={this.state.cells}
           diceRoll={this.state.diceRoll}
           changePiecePosition={this.changePiecePosition}

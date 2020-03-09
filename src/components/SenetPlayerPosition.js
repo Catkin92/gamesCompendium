@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SenetPlayerPosition = ({ whitePieces, blackPieces, diceRoll }) => {
+const SenetPlayerPosition = ({ pieces, diceRoll }) => {
 
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
