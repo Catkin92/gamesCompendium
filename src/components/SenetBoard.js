@@ -2,13 +2,14 @@ import React from 'react';
 import SenetCell from './SenetCell';
 import SenetPlayerPosition from './SenetPlayerPosition';
 
-const SenetBoard = ({ pieces, diceRoll, cells, changePiecePosition }) => {
+const SenetBoard = ({ pieces, diceRoll, cells, changePiecePosition, selectPiece }) => {
 
   // creates checkered board and initial position of playing pieces
   function createBoard() {
     const gameBoard = cells.map(cell => {
       return <SenetCell 
         changePiecePosition={changePiecePosition}
+        selectPiece={selectPiece}
         key={cell.id}
         id={cell.id}
         colour={cell.id % 2 ? "blackCell" : "whiteCell"}

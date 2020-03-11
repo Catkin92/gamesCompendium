@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import SenetBoard from '../components/SenetBoard';
 import SenetRoll from '../components/SenetRoll';
 
@@ -30,13 +30,15 @@ class SenetGame extends Component {
         { id: 22, piece: null }, { id: 23, piece: null }, { id: 24, piece: null },
         { id: 25, piece: null }, { id: 26, piece: null }, { id: 27, piece: null },
         { id: 28, piece: null }, { id: 29, piece: null }, { id: 30, piece: null }
-        
+
       ],
       winner: null,
-      turnCounter: "white"
+      turnCounter: "white",
+      selectedPiece: null
     }
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
     this.changePiecePosition = this.changePiecePosition.bind(this);
+    this.selectPiece = this.selectPiece.bind(this);
   }
 
   changeDiceRoll(roll) {
@@ -55,26 +57,31 @@ class SenetGame extends Component {
   changePiecePosition(pieceId, currentPosition, newPosition) {
 
     if (this.isMoveLegal(currentPosition, newPosition)) {
-    this.setState(previousState => {
-      const cells = [...previousState.cells];
-      cells[currentPosition - 1].piece = cells[newPosition - 1].piece;
-      cells[newPosition - 1].piece = pieceId;
-      return { cells };
-    })
+      this.setState(previousState => {
+        const cells = [...previousState.cells];
+        cells[currentPosition - 1].piece = cells[newPosition - 1].piece;
+        cells[newPosition - 1].piece = pieceId;
+        return { cells };
+      })
+    }
   }
+
+  selectPiece(id) {
+    this.setState({ selectedPiece: this.state.pieces[id - 1]});
   }
 
   render() {
     return (
       <>
         <h3>SenetGame</h3>
-        <SenetBoard 
+        <SenetBoard
           pieces={this.state.pieces}
           cells={this.state.cells}
           diceRoll={this.state.diceRoll}
           changePiecePosition={this.changePiecePosition}
+          selectPiece={this.selectPiece}
         />
-        <SenetRoll 
+        <SenetRoll
           changeDiceRoll={this.changeDiceRoll}
           diceRoll={this.state.diceRoll}
         />
