@@ -13,7 +13,7 @@
 }
 
 .whiteCell, .blackCell {
-  padding: 0.2em;
+  padding: 0.3em;
 }
 
 .senetBoard {
@@ -49,6 +49,16 @@
   width: 1em;
   margin: 0.5em;
   padding: 0.25em;
+  text-align: center;
+}
+
+.whitePieces:hover, .blackPieces:hover {
+  cursor: pointer;
+}
+
+.whiteCell:hover, .blackCell:hover {
+  border: aqua solid 0.1em;
+  padding: 0.2em;
 }
 
 .whitePieces {

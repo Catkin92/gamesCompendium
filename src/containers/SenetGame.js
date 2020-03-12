@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SenetBoard from '../components/SenetBoard';
 import SenetRoll from '../components/SenetRoll';
+import SenetPlayerPosition from '../components/SenetPlayerPosition';
 
 class SenetGame extends Component {
   constructor(props) {
@@ -45,29 +46,18 @@ class SenetGame extends Component {
     this.setState({ diceRoll: roll });
   }
 
-  isMoveLegal(currentPosition, newPosition) {
-    const newId = this.state.cells[newPosition - 1].piece;
-    const currentId = this.state.cells[currentPosition - 1].piece;
-    if ((!newId || !currentId) || this.state.pieces[newId - 1].colour !== this.state.pieces[currentId - 1].colour) {
-      return true;
-    }
-    return false;
-  }
-
   changePiecePosition(pieceId, currentPosition, newPosition) {
 
-    if (this.isMoveLegal(currentPosition, newPosition)) {
-      this.setState(previousState => {
-        const cells = [...previousState.cells];
-        cells[currentPosition - 1].piece = cells[newPosition - 1].piece;
-        cells[newPosition - 1].piece = pieceId;
-        return { cells };
-      })
-    }
+    this.setState(previousState => {
+      const cells = [...previousState.cells];
+      cells[currentPosition - 1].piece = cells[newPosition - 1].piece;
+      cells[newPosition - 1].piece = pieceId;
+      return { cells };
+    })
   }
 
   selectPiece(id) {
-    this.setState({ selectedPiece: this.state.pieces[id - 1]});
+    this.setState({ selectedPiece: this.state.pieces[id - 1] });
   }
 
   render() {
@@ -84,6 +74,13 @@ class SenetGame extends Component {
         <SenetRoll
           changeDiceRoll={this.changeDiceRoll}
           diceRoll={this.state.diceRoll}
+        />
+        <SenetPlayerPosition
+          pieces={this.state.pieces}
+          diceRoll={this.state.diceRoll}
+          selectedPiece={this.state.selectedPiece}
+          cells={this.state.cells}
+          changePiecePosition={this.changePiecePosition}
         />
       </>
     )

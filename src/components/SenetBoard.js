@@ -1,8 +1,7 @@
 import React from 'react';
 import SenetCell from './SenetCell';
-import SenetPlayerPosition from './SenetPlayerPosition';
 
-const SenetBoard = ({ pieces, diceRoll, cells, changePiecePosition, selectPiece }) => {
+const SenetBoard = ({ cells, changePiecePosition, selectPiece }) => {
 
   // creates checkered board and initial position of playing pieces
   function createBoard() {
@@ -30,10 +29,6 @@ const SenetBoard = ({ pieces, diceRoll, cells, changePiecePosition, selectPiece 
     <>
       <h4>SenetBoard</h4>
       <ul className="senetBoard">{createBoard()}</ul>
-      <SenetPlayerPosition
-        pieces={pieces}
-        diceRoll={diceRoll}
-      />
     </>
   )
 }
