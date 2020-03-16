@@ -104,15 +104,19 @@ class SenetGame extends Component {
     this.setState({ possibleSquares: array });
   }
 
-  async selectPiece(id) {
-    const piece = this.state.pieces[id - 1];
-    await this.setState({ selectedPiece: piece });
-    this.setState(() => {
-      const newSquare = this.calculateMove();
-      return this.isMoveLegal() ? ({ possibleSquares: newSquare }) : ({ possibleSquares: null });
-      }
-    )
+  highlightSquare() {
+    const newSquare = this.calculateMove();
+    const square = this.isMoveLegal() ? newSquare : null;
+    this.setState({ possibleSquares: square });
   }
+  
+  selectPiece(id) {
+    const piece = this.state.pieces[id - 1];
+    this.setState({ selectedPiece: piece }, () => {
+       this.highlightSquare();
+    });
+  }
+
 
   render() {
     return (
