@@ -90,14 +90,17 @@ class SenetGame extends Component {
     }
   }
 
-  changePiecePosition(pieceId, currentPosition, newPosition) {
-
-    this.setState(previousState => {
-      const cells = [...previousState.cells];
-      cells[currentPosition - 1].piece = cells[newPosition - 1].piece;
-      cells[newPosition - 1].piece = pieceId;
-      return { cells };
-    })
+  changePiecePosition(newCellId) {
+    const currentPosition = this.calculateCurrentSquare();
+    if (newCellId === this.state.possibleSquares) {
+      this.setState(prevState => {
+        const cells = [...prevState.cells];
+        const pieceOnNewSquare = cells[newCellId - 1].piece;
+        cells[currentPosition - 1].piece = pieceOnNewSquare;
+        cells[newCellId - 1].piece = this.state.selectedPiece.id;
+        return { cells };
+      })
+    }
   }
 
   changePossibleSquares(array) {
@@ -109,11 +112,11 @@ class SenetGame extends Component {
     const square = this.isMoveLegal() ? newSquare : null;
     this.setState({ possibleSquares: square });
   }
-  
+
   selectPiece(id) {
     const piece = this.state.pieces[id - 1];
     this.setState({ selectedPiece: piece }, () => {
-       this.highlightSquare();
+      this.highlightSquare();
     });
   }
 
@@ -126,6 +129,7 @@ class SenetGame extends Component {
           pieces={this.state.pieces}
           cells={this.state.cells}
           diceRoll={this.state.diceRoll}
+          selectedPiece={this.state.selectedPiece}
           possibleSquares={this.state.possibleSquares}
           changePiecePosition={this.changePiecePosition}
           selectPiece={this.selectPiece}
@@ -134,13 +138,6 @@ class SenetGame extends Component {
           diceRoll={this.state.diceRoll}
           changeDiceRoll={this.changeDiceRoll}
         />
-        {/* <SenetPlayerPosition
-          pieces={this.state.pieces}
-          diceRoll={this.state.diceRoll}
-          cells={this.state.cells}
-          selectedPiece={this.state.selectedPiece}
-          changePossibleSquares={this.changePossibleSquares}
-        /> */}
       </>
     )
   }

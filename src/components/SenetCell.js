@@ -9,8 +9,12 @@ const SenetCell = ({ colour, id, piece, changePiecePosition, selectPiece, possib
   ];
   const classArray = array.join(' ');
 
+  function handleMovePiece() {
+    changePiecePosition(id);
+  }
+
   return (
-    <li className={classArray}>
+    <li className={classArray} onClick={handleMovePiece} >
       {id}
       {piece ? (
         <SenetPiece
