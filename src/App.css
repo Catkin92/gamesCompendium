@@ -69,3 +69,8 @@
 .blackPieces {
   border: 0.1em solid bisque;
 }
+
+.highlight {
+  border: greenyellow solid 0.1em;
+  padding: 0.2em;
+}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SenetBoard from '../components/SenetBoard';
 import SenetRoll from '../components/SenetRoll';
-import SenetPlayerPosition from '../components/SenetPlayerPosition';
 
 class SenetGame extends Component {
   constructor(props) {
@@ -35,15 +34,60 @@ class SenetGame extends Component {
       ],
       winner: null,
       turnCounter: "white",
-      selectedPiece: null
+      selectedPiece: null,
+      possibleSquares: null
     }
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
     this.changePiecePosition = this.changePiecePosition.bind(this);
+    this.changePossibleSquares = this.changePossibleSquares.bind(this);
     this.selectPiece = this.selectPiece.bind(this);
   }
 
   changeDiceRoll(roll) {
     this.setState({ diceRoll: roll });
+  }
+
+  calculateMoveDistance() {
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    let moveDistance = 0;
+
+    if (this.state.diceRoll.length !== 0) {
+      moveDistance = this.state.diceRoll.reduce(reducer);
+      if (moveDistance === 0) {
+        moveDistance = 6;
+      }
+    }
+    else {
+      return null;
+    }
+    return moveDistance;
+  }
+
+  calculateCurrentSquare() {
+    if (this.state.selectedPiece) {
+      const currentSquare = this.state.cells.find(cell => {
+        return this.state.selectedPiece.id === cell.piece;
+      })
+      return currentSquare.id;
+    }
+  }
+
+  calculateMove() {
+    if (this.state.selectedPiece) {
+      const newSquare = this.calculateMoveDistance() + this.calculateCurrentSquare();
+      return newSquare;
+    }
+  }
+
+  isMoveLegal() {
+    const newSquare = this.calculateMove();
+    if (this.state.selectedPiece && this.state.diceRoll && this.state.cells) {
+      const pieceOnNewSquare = this.state.cells[newSquare - 1].piece;
+      if (pieceOnNewSquare && this.state.pieces[pieceOnNewSquare - 1].colour === this.state.selectedPiece.colour) {
+        return false;
+      }
+      return true;
+    }
   }
 
   changePiecePosition(pieceId, currentPosition, newPosition) {
@@ -56,8 +100,18 @@ class SenetGame extends Component {
     })
   }
 
-  selectPiece(id) {
-    this.setState({ selectedPiece: this.state.pieces[id - 1] });
+  changePossibleSquares(array) {
+    this.setState({ possibleSquares: array });
+  }
+
+  async selectPiece(id) {
+    const piece = this.state.pieces[id - 1];
+    await this.setState({ selectedPiece: piece });
+    this.setState(() => {
+      const newSquare = this.calculateMove();
+      return this.isMoveLegal() ? ({ possibleSquares: newSquare }) : ({ possibleSquares: null });
+      }
+    )
   }
 
   render() {
@@ -68,20 +122,21 @@ class SenetGame extends Component {
           pieces={this.state.pieces}
           cells={this.state.cells}
           diceRoll={this.state.diceRoll}
+          possibleSquares={this.state.possibleSquares}
           changePiecePosition={this.changePiecePosition}
           selectPiece={this.selectPiece}
         />
         <SenetRoll
-          changeDiceRoll={this.changeDiceRoll}
           diceRoll={this.state.diceRoll}
+          changeDiceRoll={this.changeDiceRoll}
         />
-        <SenetPlayerPosition
+        {/* <SenetPlayerPosition
           pieces={this.state.pieces}
           diceRoll={this.state.diceRoll}
-          selectedPiece={this.state.selectedPiece}
           cells={this.state.cells}
-          changePiecePosition={this.changePiecePosition}
-        />
+          selectedPiece={this.state.selectedPiece}
+          changePossibleSquares={this.changePossibleSquares}
+        /> */}
       </>
     )
   }

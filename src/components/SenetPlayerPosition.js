@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SenetPlayerPosition = ({ pieces, cells, diceRoll, selectedPiece }) => {
+const SenetPlayerPosition = ({ pieces, cells, diceRoll, selectedPiece, changePossibleSquares }) => {
 
   // calculates result of a dice roll
   function calculateMoveDistance() {
@@ -49,10 +49,18 @@ const SenetPlayerPosition = ({ pieces, cells, diceRoll, selectedPiece }) => {
     }
   }
 
+  function handlePossibleSquares() {
+    if (isMoveLegal()) {
+      const array = [];
+      array.push(calculateMove());
+      changePossibleSquares(array);
+    }
+  }
+
   return (
     <>
       <p>Can move to: {calculateMove()}</p>
-      <p>Piece on new square: {isMoveLegal()}</p>
+      <p>Piece on new square: </p>
     </>
   )
 

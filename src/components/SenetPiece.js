@@ -2,9 +2,9 @@ import React from 'react';
 
 const SenetPiece = ({ colour, id, currentPosition, changePiecePosition, selectPiece }) => {
 
-  function handleMovePiece() {
-    changePiecePosition(id, currentPosition, 11);
-  }
+  // function handleMovePiece() {
+  //   changePiecePosition(id, currentPosition, 11);
+  // }
 
   function handleSelectPiece() {
     selectPiece(id);
