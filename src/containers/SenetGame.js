@@ -35,11 +35,10 @@ class SenetGame extends Component {
       winner: null,
       turnCounter: "white",
       selectedPiece: null,
-      possibleSquares: null
+      possibleSquares: []
     }
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
     this.changePiecePosition = this.changePiecePosition.bind(this);
-    this.changePossibleSquares = this.changePossibleSquares.bind(this);
     this.selectPiece = this.selectPiece.bind(this);
   }
 
@@ -47,6 +46,7 @@ class SenetGame extends Component {
     this.setState({ diceRoll: roll });
   }
 
+  // calculates the number of squares a piece can move
   calculateMoveDistance() {
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     let moveDistance = 0;
@@ -63,6 +63,15 @@ class SenetGame extends Component {
     return moveDistance;
   }
 
+  // sets state for piece clicked then calls highlightSquare
+  selectPiece(id) {
+    const piece = this.state.pieces[id - 1];
+    this.setState({ selectedPiece: piece }, 
+      this.highlightSquare()
+    );
+  }
+
+  // calculates what square the selected piece is on
   calculateCurrentSquare() {
     if (this.state.selectedPiece) {
       const currentSquare = this.state.cells.find(cell => {
@@ -72,54 +81,58 @@ class SenetGame extends Component {
     }
   }
 
+  // calculates where a piece can move to given the dice roll
   calculateMove() {
     if (this.state.selectedPiece) {
+      const array = [];
       const newSquare = this.calculateMoveDistance() + this.calculateCurrentSquare();
-      return newSquare;
+      array.push(newSquare);
+      const backSquare = this.calculateCurrentSquare() - this.calculateMoveDistance();
+      array.push(backSquare);
+      return array;
     }
   }
 
-  isMoveLegal() {
-    const newSquare = this.calculateMove();
+  // checks whether a piece can move to a square
+  isMoveLegal(index) {
+    const moveArray = this.calculateMove();
     if (this.state.selectedPiece && this.state.diceRoll && this.state.cells) {
-      const pieceOnNewSquare = this.state.cells[newSquare - 1].piece;
-      if (pieceOnNewSquare && this.state.pieces[pieceOnNewSquare - 1].colour === this.state.selectedPiece.colour) {
+      const pieceOnNewSquare = this.state.cells[moveArray[index] - 1] >= 0 ? 
+        this.state.cells[moveArray[index] - 1].piece : null;
+      if (pieceOnNewSquare && 
+          this.state.pieces[pieceOnNewSquare - 1].colour === this.state.selectedPiece.colour) {
         return false;
       }
       return true;
     }
   }
 
-  changePiecePosition(newCellId) {
-    const currentPosition = this.calculateCurrentSquare();
-    if (newCellId === this.state.possibleSquares) {
-      this.setState(prevState => {
-        const cells = [...prevState.cells];
-        const pieceOnNewSquare = cells[newCellId - 1].piece;
-        cells[currentPosition - 1].piece = pieceOnNewSquare;
-        cells[newCellId - 1].piece = this.state.selectedPiece.id;
-        return { cells };
-      })
+  // sets state of possible squares a piece can move to
+  highlightSquare() {
+    const newSquares = this.calculateMove();
+    const array = []
+    for (let i = 0; i < 2; i++) {
+      const square = this.isMoveLegal(i) ? newSquares[i] : null;
+      array.push(square);
     }
-  }
-
-  changePossibleSquares(array) {
     this.setState({ possibleSquares: array });
   }
 
-  highlightSquare() {
-    const newSquare = this.calculateMove();
-    const square = this.isMoveLegal() ? newSquare : null;
-    this.setState({ possibleSquares: square });
+  // on click moves the selected piece to a new square, and swaps places with any piece on new square
+  changePiecePosition(newCellId) {
+    console.log(this.state.possibleSquares);
+    console.log(newCellId);
+    const currentPosition = this.calculateCurrentSquare();
+      if (this.state.possibleSquares.length !== 0 && newCellId === this.state.possibleSquares[0 || 1]) {
+        this.setState(prevState => {
+          var cells = [...prevState.cells];
+          const pieceOnNewSquare = cells[newCellId - 1].piece;
+          cells[currentPosition - 1].piece = pieceOnNewSquare;
+          cells[newCellId - 1].piece = this.state.selectedPiece.id;
+          return { cells };
+      })
+    }
   }
-
-  selectPiece(id) {
-    const piece = this.state.pieces[id - 1];
-    this.setState({ selectedPiece: piece }, () => {
-      this.highlightSquare();
-    });
-  }
-
 
   render() {
     return (

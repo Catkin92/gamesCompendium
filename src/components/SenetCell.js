@@ -2,19 +2,29 @@ import React from 'react';
 import SenetPiece from './SenetPiece';
 
 const SenetCell = ({ colour, id, piece, changePiecePosition, selectPiece, possibleSquares }) => {
-
-  const array = [
-    colour,
-    possibleSquares === id ? "highlight" : null
-  ];
-  const classArray = array.join(' ');
+  
+  function classArray() {
+    let array = [];
+    if (possibleSquares) {
+      array = [
+        colour,
+        possibleSquares[0] === id ? "highlight" : null,
+        possibleSquares[1] === id ? "highlight" : null,
+      ];
+    } else {
+        array = [
+          colour
+        ]
+      }
+    return array.join(' ');
+  }
 
   function handleMovePiece() {
     changePiecePosition(id);
   }
 
   return (
-    <li className={classArray} onClick={handleMovePiece} >
+    <li className={classArray()} onClick={handleMovePiece} >
       {id}
       {piece ? (
         <SenetPiece
@@ -28,5 +38,4 @@ const SenetCell = ({ colour, id, piece, changePiecePosition, selectPiece, possib
     </li>
   )
 }
-
 export default SenetCell;
