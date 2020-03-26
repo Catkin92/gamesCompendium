@@ -1,10 +1,10 @@
 .whiteCell, .whitePieces {
   background-color: bisque;
-  color: rgba(0, 0, 0, 0.664);
+  color: rgb(95, 94, 94);
 }
 
 .blackCell, .blackPieces {
-  background-color: rgba(0, 0, 0, 0.664);
+  background-color: rgb(95, 94, 94);
   color: bisque;
 }
 
@@ -18,8 +18,8 @@
 
 .senetBoard {
   display: grid;
-  grid-template-columns: repeat(10, 4em);
-  grid-template-rows: repeat(3, 4em);
+  grid-template-columns: repeat(10, 5em);
+  grid-template-rows: repeat(3, 5em);
 }
 
 .whiteDie, .blackDie {
@@ -35,8 +35,8 @@
 }
 
 .blackDie {
-  background-color:  rgba(0, 0, 0, 0.664);
-  color: rgba(90, 89, 89, 0.664);
+  background-color:  rgb(95, 94, 94);
+  color: rgb(95, 94, 94);
 }
 
 .diceRoll {
@@ -63,7 +63,7 @@
 
 .whitePieces {
   border-radius: 5em;
-  border: 0.1em solid rgba(0, 0, 0, 0.664);
+  border: 0.1em solid rgb(95, 94, 94);
 }
 
 .blackPieces {
@@ -71,6 +71,6 @@
 }
 
 .highlight {
-  border: orange solid 0.2em;
-  padding: 0.1em;
+  border: orange solid 0.25em;
+  padding: 0.05em;
 }
