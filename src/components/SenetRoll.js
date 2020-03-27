@@ -18,6 +18,7 @@ const SenetRoll = ({ changeDiceRoll, diceRoll }) => {
     const diceRoll = rollDice()
     changeDiceRoll(diceRoll);
   }
+  
 
   return (
     <>

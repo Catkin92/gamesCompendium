@@ -1,24 +1,19 @@
 import React from 'react';
 import SenetPiece from './SenetPiece';
 
-const SenetCell = ({ colour, id, piece, changePiecePosition, selectPiece, possibleSquares }) => {
-
-  const array = [
-    colour,
-    possibleSquares === id ? "highlight" : null
-  ];
-  const classArray = array.join(' ');
+const SenetCell = ({ colour, id, piece, changePiecePosition, selectPiece, possiblePieces }) => {
 
   function handleMovePiece() {
     changePiecePosition(id);
   }
 
   return (
-    <li className={classArray} onClick={handleMovePiece} >
+    <li className={colour} onClick={handleMovePiece} >
       {id}
       {piece ? (
         <SenetPiece
           changePiecePosition={changePiecePosition}
+          possiblePieces={possiblePieces}
           selectPiece={selectPiece}
           currentPosition={id}
           id={piece}

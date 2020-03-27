@@ -71,6 +71,7 @@
 }
 
 .highlight {
-  border: orange solid 0.25em;
+  border: orange solid 0.2em;
   padding: 0.05em;
+  margin: 0.6em;
 }

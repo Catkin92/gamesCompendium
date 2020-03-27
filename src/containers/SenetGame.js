@@ -33,92 +33,95 @@ class SenetGame extends Component {
 
       ],
       winner: null,
-      turnCounter: "white",
+      turnCounter: "black",
       selectedPiece: null,
-      possibleSquares: null
+      possiblePieces: []
     }
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
-    this.changePiecePosition = this.changePiecePosition.bind(this);
-    this.changePossibleSquares = this.changePossibleSquares.bind(this);
-    this.selectPiece = this.selectPiece.bind(this);
+    // this.changePiecePosition = this.changePiecePosition.bind(this);
+    // this.changePossibleSquares = this.changePossibleSquares.bind(this);
+    // this.selectPiece = this.selectPiece.bind(this);
   }
 
   changeDiceRoll(roll) {
-    this.setState({ diceRoll: roll });
+    this.setState({ diceRoll: roll }, () => {
+      console.log(`Dice roll state: ${this.state.diceRoll}`)
+      console.log(`Possible pieces state: ${this.state.possiblePieces}`)
+      this.calculatePossiblePieces();
+    });
   }
 
   calculateMoveDistance() {
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     let moveDistance = 0;
-
-    if (this.state.diceRoll.length !== 0) {
-      moveDistance = this.state.diceRoll.reduce(reducer);
-      if (moveDistance === 0) {
-        moveDistance = 6;
-      }
-    }
-    else {
-      return null;
+    moveDistance = this.state.diceRoll.reduce(reducer);
+    if (moveDistance === 0) {
+      moveDistance = 6;
     }
     return moveDistance;
   }
 
-  calculateCurrentSquare() {
-    if (this.state.selectedPiece) {
-      const currentSquare = this.state.cells.find(cell => {
-        return this.state.selectedPiece.id === cell.piece;
+  calculatePossiblePieces() {
+    const piecesArray = this.state.pieces.filter(piece => {
+      return piece.colour === this.state.turnCounter &&
+      this.isMoveLegal(piece);
+    });
+    console.log(`pieces array: ${piecesArray[0].id}`);
+    this.setState({ possiblePieces: piecesArray });
+  }
+
+  calculateCurrentSquare(pieceId) {
+    const currentSquare = this.state.cells.find(cell => {
+        return pieceId === cell.piece;
       })
-      return currentSquare.id;
-    }
+    return currentSquare.id;
   }
 
-  calculateMove() {
-    if (this.state.selectedPiece) {
-      const newSquare = this.calculateMoveDistance() + this.calculateCurrentSquare();
-      return newSquare;
-    }
+  calculateMove(pieceId) {
+    const newSquare = this.calculateMoveDistance() + this.calculateCurrentSquare(pieceId);
+    return newSquare;
   }
 
-  isMoveLegal() {
-    const newSquare = this.calculateMove();
-    if (this.state.selectedPiece && this.state.diceRoll && this.state.cells) {
+  isMoveLegal(piece) {
+    const newSquare = this.calculateMove(piece.id);
+    if (this.state.cells) {
       const pieceOnNewSquare = this.state.cells[newSquare - 1].piece;
-      if (pieceOnNewSquare && this.state.pieces[pieceOnNewSquare - 1].colour === this.state.selectedPiece.colour) {
+      if (pieceOnNewSquare && this.state.pieces[pieceOnNewSquare - 1].colour === piece.colour) {
         return false;
       }
-      return true;
-    }
+    } 
+    return true;
   }
 
-  changePiecePosition(newCellId) {
-    const currentPosition = this.calculateCurrentSquare();
-    if (newCellId === this.state.possibleSquares) {
-      this.setState(prevState => {
-        const cells = [...prevState.cells];
-        const pieceOnNewSquare = cells[newCellId - 1].piece;
-        cells[currentPosition - 1].piece = pieceOnNewSquare;
-        cells[newCellId - 1].piece = this.state.selectedPiece.id;
-        return { cells };
-      })
-    }
-  }
+  // changePiecePosition(newCellId) {
+  //   const currentPosition = this.calculateCurrentSquare();
+  //   if (newCellId === this.state.possibleSquares) {
+  //     this.setState(prevState => {
+  //       const cells = [...prevState.cells];
+  //       const pieceOnNewSquare = cells[newCellId - 1].piece;
+  //       cells[currentPosition - 1].piece = pieceOnNewSquare;
+  //       cells[newCellId - 1].piece = this.state.selectedPiece.id;
+  //       return { cells };
+  //     })
+  //   }
+  // }
 
-  changePossibleSquares(array) {
-    this.setState({ possibleSquares: array });
-  }
+  // changePossibleSquares(array) {
+  //   this.setState({ possibleSquares: array });
+  // }
 
-  highlightSquare() {
-    const newSquare = this.calculateMove();
-    const square = this.isMoveLegal() ? newSquare : null;
-    this.setState({ possibleSquares: square });
-  }
+  // highlightSquare() {
+  //   const newSquare = this.calculateMove();
+  //   const square = this.isMoveLegal() ? newSquare : null;
+  //   this.setState({ possibleSquares: square });
+  // }
 
-  selectPiece(id) {
-    const piece = this.state.pieces[id - 1];
-    this.setState({ selectedPiece: piece }, () => {
-      this.highlightSquare();
-    });
-  }
+  // selectPiece(id) {
+  //   const piece = this.state.pieces[id - 1];
+  //   this.setState({ selectedPiece: piece }, () => {
+  //     this.highlightSquare();
+  //   });
+  // }
 
 
   render() {
@@ -130,7 +133,7 @@ class SenetGame extends Component {
           cells={this.state.cells}
           diceRoll={this.state.diceRoll}
           selectedPiece={this.state.selectedPiece}
-          possibleSquares={this.state.possibleSquares}
+          possiblePieces={this.state.possiblePieces}
           changePiecePosition={this.changePiecePosition}
           selectPiece={this.selectPiece}
         />
