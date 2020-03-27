@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SenetPiece = ({ colour, id, selectPiece, possiblePieces }) => {
+const SenetPiece = ({ colour, id, movePiece, possiblePieces }) => {
 
   function shouldHighlight() {
     if (possiblePieces) {
@@ -17,12 +17,12 @@ const SenetPiece = ({ colour, id, selectPiece, possiblePieces }) => {
   ];
   const classArray = array.join(' ');
 
-  function handleSelectPiece() {
-    selectPiece(id);
+  function handleMovePiece() {
+    movePiece(id);
   }
 
   return (
-    <p className={classArray} onClick={handleSelectPiece}>{id}</p>
+    <p className={classArray} onClick={handleMovePiece}>{id}</p>
   )
 }
 

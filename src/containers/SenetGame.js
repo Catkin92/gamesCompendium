@@ -40,7 +40,7 @@ class SenetGame extends Component {
     this.changeDiceRoll = this.changeDiceRoll.bind(this);
     // this.changePiecePosition = this.changePiecePosition.bind(this);
     // this.changePossibleSquares = this.changePossibleSquares.bind(this);
-    // this.selectPiece = this.selectPiece.bind(this);
+    this.movePiece = this.movePiece.bind(this);
   }
 
   changeDiceRoll(roll) {
@@ -66,7 +66,6 @@ class SenetGame extends Component {
       return piece.colour === this.state.turnCounter &&
       this.isMoveLegal(piece);
     });
-    console.log(`pieces array: ${piecesArray[0].id}`);
     this.setState({ possiblePieces: piecesArray });
   }
 
@@ -93,18 +92,24 @@ class SenetGame extends Component {
     return true;
   }
 
-  // changePiecePosition(newCellId) {
-  //   const currentPosition = this.calculateCurrentSquare();
-  //   if (newCellId === this.state.possibleSquares) {
-  //     this.setState(prevState => {
-  //       const cells = [...prevState.cells];
-  //       const pieceOnNewSquare = cells[newCellId - 1].piece;
-  //       cells[currentPosition - 1].piece = pieceOnNewSquare;
-  //       cells[newCellId - 1].piece = this.state.selectedPiece.id;
-  //       return { cells };
-  //     })
-  //   }
-  // }
+  movePiece(pieceId) {
+    const currentPosition = this.calculateCurrentSquare(pieceId);
+    const newCellId = this.calculateMove(pieceId);
+    const piecesIds = this.state.possiblePieces.map(piece => {
+      return piece.id;
+    })
+    if (this.isMoveLegal(this.state.pieces[pieceId - 1]) && piecesIds.includes(pieceId)) {
+      this.setState(prevState => {
+        const cells = [...prevState.cells];
+        const pieceOnNewSquare = cells[newCellId - 1].piece;
+        cells[currentPosition - 1].piece = pieceOnNewSquare;
+        cells[newCellId - 1].piece = pieceId;
+        return { cells };
+      })
+      this.setState({ turnCounter: "black" ? "white" : "black"})
+    }
+
+  }
 
   // changePossibleSquares(array) {
   //   this.setState({ possibleSquares: array });
@@ -133,9 +138,10 @@ class SenetGame extends Component {
           cells={this.state.cells}
           diceRoll={this.state.diceRoll}
           selectedPiece={this.state.selectedPiece}
+          turnCounter={this.state.turnCounter}
           possiblePieces={this.state.possiblePieces}
           changePiecePosition={this.changePiecePosition}
-          selectPiece={this.selectPiece}
+          movePiece={this.movePiece}
         />
         <SenetRoll
           diceRoll={this.state.diceRoll}
